@@ -4,10 +4,12 @@ A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com
 
 Created mostly for fun/as a joke, but maybe I'll actually switch to it at some point lol.
 
-Features:
+Current features:
 - 4-space indents
 - Relative line numbers
 - Highlight-on-Yank
+
+Will (maybe) add plugins at some point.
 
 ## Installation
 
