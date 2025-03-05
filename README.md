@@ -8,6 +8,7 @@ Current features:
 - 4-space indents
 - Relative line numbers
 - Highlight-on-Yank
+- Transparent background (For terminals that support it)
 
 Will (maybe) add plugins at some point.
 

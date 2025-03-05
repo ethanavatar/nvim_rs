@@ -1,5 +1,3 @@
-use std::error::Error as StdError;
-
 use nvim_oxi::lua;
 use nvim_oxi::lua::{ffi::*, macros::cstr};
 
