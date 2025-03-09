@@ -45,14 +45,15 @@ pub fn plugins() {
     ffi::rtp_prepend(&lazy_path);
 
     let nvim_config = ffi::stdpath("config").unwrap();
-    let lazy_config = nvim_oxi::Dictionary::from_iter([
-        /*
-        ("defaults", nvim_oxi::Dictionary::from_iter([
-            ("lazy", true),
-        ])),
-        */
-        ("lockfile", nvim_config.join("lazy-lock.json").as_os_str().to_str().unwrap())
-    ]);
+    let mut lazy_config = nvim_oxi::Dictionary::new();
+
+    lazy_config.insert("defaults", {
+        let mut defaults = nvim_oxi::Dictionary::new();
+        defaults.insert("lazy", true);
+        defaults
+    });
+
+    lazy_config.insert("lockfile", nvim_config.join("lazy-lock.json").as_os_str().to_str().unwrap());
 
     //ffi::lazy_setup(&lazy_config);
 }
