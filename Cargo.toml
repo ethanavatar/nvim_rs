@@ -8,4 +8,4 @@ publish = false
 crate-type = ["cdylib"]
 
 [dependencies]
-nvim-oxi = { version = "0.5.1", features = ["neovim-0-10"] }
+nvim-oxi = { version = "0.5.1", features = [ "neovim-0-10" ] }
