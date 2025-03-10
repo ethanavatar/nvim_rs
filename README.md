@@ -12,7 +12,6 @@ Current features:
 
 ## TODO-list
 
-- Certain core behaviors (ex: `vim.opt.rtp:prepend`, `require('lazy').setup({...})`) are implemented with the luajit FFI, but that shouldn't be necessary if I just start using [mlua-rs/mlua](https://github.com/mlua-rs/mlua)
 - Initializing [folke/lazy](https://github.com/folke/lazy.nvim)
     - Install a color theme
     - Disable default neovim plugins

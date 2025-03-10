@@ -9,6 +9,7 @@ pub fn plugins() {
         .join("lazy")
         .join("lazy.nvim");
 
+
     if !lazy_path.exists() {
         let lazy_repo = "https://github.com/folke/lazy.nvim.git";
         Command::new("git")

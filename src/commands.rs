@@ -1,4 +1,5 @@
 use crate::ffi;
+use nvim_oxi::api as nvim;
 
 pub fn commands() {
     highlight_ok_yank();
@@ -6,14 +7,14 @@ pub fn commands() {
 }
 
 fn highlight_ok_yank() {
-    let opts = nvim_oxi::api::opts::CreateAugroupOpts::builder()
+    let opts = nvim::opts::CreateAugroupOpts::builder()
         .clear(true)
         .build();
 
-    let group = nvim_oxi::api::create_augroup("YankHighlight", &opts)
-        .unwrap();
+    let group = nvim::create_augroup("YankHighlight", &opts)
+        .expect("failed to create augroup");
 
-    let opts = nvim_oxi::api::opts::CreateAutocmdOpts::builder()
+    let opts = nvim::opts::CreateAutocmdOpts::builder()
         .group(group)
         .patterns(["*"])
         .callback(|_| {
@@ -22,32 +23,32 @@ fn highlight_ok_yank() {
         })
         .build();
 
-    nvim_oxi::api::create_autocmd(["TextYankPost"], &opts)
-        .unwrap();
+    nvim::create_autocmd(["TextYankPost"], &opts)
+        .expect("failed to create autocmd");
 }
 
 fn transparent_background() {
 
     fn callback(
-        _: nvim_oxi::api::types::AutocmdCallbackArgs
+        _: nvim::types::AutocmdCallbackArgs
     ) -> nvim_oxi::Result<bool> {
-        nvim_oxi::api::command("highlight Normal ctermbg=NONE guibg=NONE")?;
-        nvim_oxi::api::command("highlight Pmenu ctermbg=NONE guibg=NONE")?;
-        nvim_oxi::api::command("highlight SignColumn ctermbg=NONE guibg=NONE")?;
+        nvim::command("highlight Normal ctermbg=NONE guibg=NONE").expect("failed to set NORMAL");
+        nvim::command("highlight Pmenu ctermbg=NONE guibg=NONE").expect("failed to set PMENU");
+        nvim::command("highlight SignColumn ctermbg=NONE guibg=NONE").expect("failed to set SignColumn");
         Ok(false)
     }
 
-    let opts  = nvim_oxi::api::opts::CreateAugroupOpts::builder()
+    let opts  = nvim::opts::CreateAugroupOpts::builder()
         .build();
 
-    let group = nvim_oxi::api::create_augroup("TransparentBackground", &opts)
-        .unwrap();
+    let group = nvim::create_augroup("TransparentBackground", &opts)
+        .expect("failed to create augroup");
 
-    let opts = nvim_oxi::api::opts::CreateAutocmdOpts::builder()
+    let opts = nvim::opts::CreateAutocmdOpts::builder()
         .group(group)
         .callback(callback)
         .build();
 
-    nvim_oxi::api::create_autocmd(["UIEnter"], &opts)
-        .unwrap();    
+    nvim::create_autocmd(["UIEnter"], &opts)
+        .expect("failed to create autocmd");
 }

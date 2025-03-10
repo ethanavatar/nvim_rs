@@ -1,96 +1,73 @@
-use nvim_oxi::lua;
-use nvim_oxi::lua::ffi::*;
-use nvim_oxi::lua::macros::cstr;
+use nvim_oxi::mlua;
+use nvim_oxi::mlua::Table;
+use nvim_oxi::mlua::Function;
 
-use std::ffi::CString;
-use std::ffi::CStr;
-
-use std::ffi::{c_char, c_int};
-
-#[cfg_attr(
-    all(target_os = "windows", target_env = "msvc"),
-    link(name = "lua51", kind = "raw-dylib")
-)]
-unsafe extern "C" {
-    pub fn luaL_getmetafield (L: *mut nvim_oxi::lua::ffi::lua_State, obj: c_int, e: *const c_char) -> c_int;
-}
+use mlua::prelude::*;
 
 pub fn lazy_setup(path: &nvim_oxi::Dictionary) {
     todo!()
 }
 
 pub fn rtp_prepend(path: &std::path::Path) {
-    let path_str = path.as_os_str()
-        .to_str()
-        .unwrap();
+    fn f(path: &std::path::Path) -> mlua::Result<()> {
+        let path_str = path.as_os_str().to_str().unwrap();
+        let rtp = mlua::lua().globals()
+            .get::<_, Table>("vim")?
+            .get::<_, Table>("opt")?
+            .get::<_, Table>("rtp")?;
 
-    let path_cstr = CString::new(path_str)
-        .expect("CString::new failed");
+        rtp.get_metatable().unwrap()
+            .get::<_, Function>("prepend")?
+            .call::<_, ()>((rtp, path_str))?;
 
-    unsafe {
-        lua::with_state(move |lstate| {
-            lua_getglobal(lstate, cstr!("vim"));
-            lua_getfield(lstate, -1, cstr!("opt"));
-            lua_getfield(lstate, -1, cstr!("rtp"));
+        Ok(())
+    }
 
-            luaL_getmetafield(lstate, -1, cstr!("prepend"));
-            lua_getfield(lstate, -3, cstr!("rtp"));
-            lua_pushstring(lstate, path_cstr.as_ptr());
-
-            lua_call(lstate, 2, 0);
-
-            lua_pop(lstate, 1); // rtp
-            lua_pop(lstate, 1); // opt
-            lua_pop(lstate, 1); // vim
-        });
-    };
+    match f(path) {
+        Ok(v) => v,
+        Err(e) => {
+            nvim_oxi::print!("{:?}", e);
+        },
+    }
 }
 
 pub fn stdpath(path_name: &str) -> Option<std::path::PathBuf> {
-    let path_cstr = CString::new(path_name)
-        .expect("CString::new failed");
+    fn f(path_name: &str) -> mlua::Result<Option<std::path::PathBuf>> {
+        let path = mlua::lua().globals()
+            .get::<_, Table>("vim")?
+            .get::<_, Table>("fn")?
+            .get::<_, Function>("stdpath")?
+            .call::<_, Option<String>>(path_name)?;
 
-    let mut result_path: Option<std::path::PathBuf> = None;
-    unsafe {
-        lua::with_state(|lstate| {
-            lua_getglobal(lstate,    cstr!("vim"));
-            lua_getfield(lstate, -1, cstr!("fn"));
-            lua_getfield(lstate, -1, cstr!("stdpath"));
+        let path = path.map(|s| std::path::PathBuf::from(s));
+        Ok(path)
+    }
 
-            lua_pushstring(lstate, path_cstr.as_ptr());
-
-            lua_call(lstate, 1, 1);
-            let returned = lua_tostring(lstate, -1);
-            result_path = CStr::from_ptr(returned)
-                .to_str().ok()
-                .map(|s| std::path::PathBuf::from(s));
-
-            lua_pop(lstate, 1);
-            lua_pop(lstate, 1);
-        });
-    };
-
-    result_path
+    match f(path_name) {
+        Ok(v) => v,
+        Err(e) => {
+            nvim_oxi::print!("{:?}", e);
+            None
+        },
+    }
 }
 
 
 pub fn highlight_on_yank() {
-    unsafe {
-        lua::with_state(|lstate| {
-            // Put `vim.highlight.on_yank` on the stack.
-            lua_getglobal(lstate, cstr!("vim"));
-            lua_getfield(lstate, -1, cstr!("highlight"));
-            lua_getfield(lstate, -1, cstr!("on_yank"));
+    fn f() -> mlua::Result<()> {
+        mlua::lua().globals()
+            .get::<_, Table>("vim")?
+            .get::<_, Table>("highlight")?
+            .get::<_, Function>("on_yank")?
+            .call::<(), ()>(())?;
 
-            // Call `on_yank` and pop it off the stack.
-            lua_call(lstate, 0, 0);
+        Ok(())
+    }
 
-            // Pop `vim` off the stack.
-            lua_pop(lstate, 1);
-
-            // Pop `highlight` off the stack.
-            lua_pop(lstate, 1);
-        })
-    };
+    match f() {
+        Ok(v) => v,
+        Err(e) => {
+            nvim_oxi::print!("{:?}", e);
+        },
+    }
 }
-
