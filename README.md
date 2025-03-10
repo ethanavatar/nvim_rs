@@ -1,8 +1,8 @@
 # nvim_rs
 
-A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com/noib3/nvim-oxi).
+A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com/noib3/nvim-oxi) and [mlua-rs/mlua](https://github.com/mlua-rs/mlua).
 
-Created mostly for fun/as a joke, but maybe I'll actually switch to it at some point lol.
+Started as a joke, but turns out it's actually pretty nice, and now I'm actually using it as my daily setup.
 
 Current features:
 - 4-space indents
@@ -38,6 +38,6 @@ Of course. It's blazingly fast.
 
 Its actually not even faster than a pure-Lua version would be. It might even be slower because of the interop layer.
 
-All of the plugins are still written in Lua anyways.
+All of the plugins are still written in Lua anyways...
 
 You know what that means...
