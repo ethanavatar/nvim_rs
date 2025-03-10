@@ -4,6 +4,8 @@ A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com
 
 Started as a joke, but turns out it's actually pretty nice, and now I'm actually using it as my daily setup.
 
+No screenshots because it's, visually, completely stock right now.
+
 Current features:
 - 4-space indents
 - Relative line numbers
