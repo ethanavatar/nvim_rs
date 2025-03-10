@@ -13,9 +13,9 @@ Current features:
 ## TODO-list
 
 - [x] Initializing [folke/lazy](https://github.com/folke/lazy.nvim)
-    - [x] Install the only plugin that matters, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
+    - [x] Install the only important plugin, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [x] Disable default neovim plugins
-    - Install a color theme
+    - [ ] Install a color theme
 
 ## Installation
 
