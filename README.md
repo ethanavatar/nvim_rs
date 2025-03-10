@@ -9,13 +9,19 @@ Current features:
 - Relative line numbers
 - Highlight-on-Yank
 - Transparent background (For terminals that support it)
+- [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
+    - [echasnovski/mini.icons](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-icons.md)
 
 ## TODO-list
 
-- [x] Initializing [folke/lazy](https://github.com/folke/lazy.nvim)
+- [x] Setup [folke/lazy](https://github.com/folke/lazy.nvim) for plugin management
     - [x] Install the only important plugin, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [x] Disable default neovim plugins
     - [ ] Install a color theme
+    - [ ] Disable mouse
+    - [ ] [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) or something like it
+    - [ ] something for autopairs
+    - [ ] something for smart indentation
 
 ## Installation
 
