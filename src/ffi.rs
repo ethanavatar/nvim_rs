@@ -4,10 +4,6 @@ use nvim_oxi::mlua::Function;
 
 use mlua::prelude::*;
 
-pub fn lazy_setup(path: &nvim_oxi::Dictionary) {
-    todo!()
-}
-
 pub fn rtp_prepend(path: &std::path::Path) {
     fn f(path: &std::path::Path) -> mlua::Result<()> {
         let path_str = path.as_os_str().to_str().unwrap();

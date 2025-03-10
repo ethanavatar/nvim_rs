@@ -9,4 +9,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 nvim-oxi = { version = "0.5.1", features = [ "neovim-0-10", "mlua" ] }
-mlua = { version = "0.10.3", features = [ "luajit", "module" ] }
+mlua = { version = "0.10.0", features = [ "luajit", "module" ] }
