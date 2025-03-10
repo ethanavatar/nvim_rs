@@ -1,4 +1,7 @@
+mod file_navigation;
+
 use crate::ffi;
+use crate::types::TableBuilder;
 
 use std::path::Path;
 use std::process::Command;
@@ -54,117 +57,59 @@ pub fn plugins() {
     let nvim_config = ffi::stdpath("config").unwrap();
 
     let lua = nvim_oxi::mlua::lua();
-    let lazy_config = lua.create_table().unwrap();
 
-    lazy_config.set("lockfile", nvim_config.join("lazy-lock.json").as_os_str().to_str().unwrap());
+    let plugins = [
+        file_navigation::spec(),
+    ];
 
-    lazy_config.set("spec", {
-        lua.create_sequence_from([
-            {
-                let oil = lua.create_sequence_from(["stevearc/oil.nvim"]).unwrap();
-                oil.set("lazy", false);
-                oil.set("opts", {
-                    let opts = lua.create_table().unwrap();
-                    opts.set("float", {
-                        let float = lua.create_table().unwrap();
-                        float.set("padding", 6);
-                        float
-                    });
-                    opts
-                });
+    let lazy_cache = cache_dir
+        .join("lazy")
+        .join("cache");
 
-                oil.set("dependencies", 
-                    lua.create_sequence_from([
-                        {
-                            let icons = lua.create_sequence_from(["echasnovski/mini.icons"]).unwrap();
-                            icons.set("version", "*");
-                            icons.set("opts", lua.create_table().unwrap());
-                            icons
-                        }
-                    ]).unwrap()
-                );
+    let lazy_cache = lazy_cache
+        .as_os_str()
+        .to_str()
+        .unwrap();
 
-                oil.set(
-                    "keys", 
-                    lua.create_sequence_from([
-                    {
-                        let keys = lua.create_sequence_from([
-                            "<leader>n",
-                            "<CMD>Oil --float<CR>"
-                        ]).unwrap();
-                        keys.set("desc", "Open parent directory (Oil.nvim)");
-                        keys.set("mode", "n");
+    let disabled_plugins = [
+        "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
+        "gzip",
+        "zip", "zipPlugin",
+        "tar", "tarPlugin",
+        "getscript", "getscriptPlugin",
+        "vimball", "vimballPlugin",
+        "2html_plugin",
+        "logipat",
+        "rrhelper",
+        "spellfile_plugin",
+        "matchit",
+    ];
 
-                        keys
-                    }
-                    ]).unwrap()
-                );
-
-                oil
-            }
-        ]).unwrap()
-    });
-
-    lazy_config.set("defaults", {
-        let defaults = lua.create_table().unwrap();
-        defaults.set("lazy", true);
-        defaults
-    });
-
-    lazy_config.set("performance", {
-        let performance = lua.create_table().unwrap();
-
-        performance.set("cache", {
-            let cache = lua.create_table().unwrap();
-            cache.set("enabled", true);
-            let lazy_cache = cache_dir
-                .join("lazy")
-                .join("cache");
-
-            let lazy_cache = lazy_cache
-                .as_os_str()
-                .to_str()
-                .unwrap();
-
-            cache.set("path", lazy_cache);
-            cache.set(
-                "disable_events",
-                lua.create_sequence_from([ "VimEnter", "BufReadPre" ]).unwrap()
-            );
-            cache
-        });
-
-        performance.set("rtp", {
-            let rtp = lua.create_table().unwrap();
-            rtp.set("reset", true);
-            rtp.set(
-                "disabled_plugins", 
-                lua.create_sequence_from([
-                    "netrw",
-                    "netrwPlugin",
-                    "netrwSettings",
-                    "netrwFileHandlers",
-                    "gzip",
-                    "zip",
-                    "zipPlugin",
-                    "tar",
-                    "tarPlugin",
-                    "getscript",
-                    "getscriptPlugin",
-                    "vimball",
-                    "vimballPlugin",
-                    "2html_plugin",
-                    "logipat",
-                    "rrhelper",
-                    "spellfile_plugin",
-                    "matchit",
-                ]).unwrap()
-            );
-            rtp
-        });
-
-        performance
-    });
+    let lazy_config = TableBuilder::new()
+        .set("lockfile", nvim_config.join("lazy-lock.json").as_os_str().to_str().unwrap())
+        .set("spec", lua.create_sequence_from(plugins).unwrap())
+        .set("defaults", TableBuilder::new()
+            .set("lazy", true)
+            .build()
+        )
+        .set("performance", TableBuilder::new()
+            .set("cache", TableBuilder::new()
+                .set("enabled", true)
+                .set("path", lazy_cache)
+                .set(
+                    "disable_events",
+                    lua.create_sequence_from([ "VimEnter", "BufReadPre" ]).unwrap()
+                )
+                .build()
+            )
+            .set("rtp", TableBuilder::new()
+                .set("reset", true)
+                .set("disabled", lua.create_sequence_from(disabled_plugins).unwrap())
+                .build()
+            )
+            .build()
+        )
+        .build();
 
     mlua::lua().globals()
         .get::<_, Function>("require").unwrap()

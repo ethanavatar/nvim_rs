@@ -1,0 +1,46 @@
+use nvim_oxi::mlua;
+use nvim_oxi::mlua::Table;
+
+use crate::types::TableBuilder;
+
+pub fn spec<'a>() -> Table<'a> {
+    TableBuilder::new()
+        .set_value("stevearc/oil.nvim")
+        .set("lazy", false)
+        .set("opts", TableBuilder::new()
+            .set("float", TableBuilder::new()
+                .set("padding", 6)
+                .set("win_options", TableBuilder::new()
+                    .set("winblend", 12)
+                    .build()
+                )
+                .build()
+            )
+            .set("view_options", TableBuilder::new()
+                .set("show_hidden", true)
+                .build()
+            )
+            .build()
+        )
+        .set("dependencies", TableBuilder::new()
+            .set(1, TableBuilder::new()
+                .set_value("echasnovski/mini.icons")
+                .set("version", "*")
+                .set("opts", TableBuilder::new().build())
+                .build()
+            )
+            .build()
+        )
+        .set("keys", TableBuilder::new()
+            .set(1, TableBuilder::new()
+                .set_value("<leader>n")
+                .set_value("<CMD>Oil --float<CR>")
+                .set("desc", "Open parent directory (Oil.nvim)")
+                .set("mode", "n")
+                .build()
+            )
+            .build()
+        )
+        .build()
+}
+

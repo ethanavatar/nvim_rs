@@ -1,5 +1,6 @@
 mod ffi;
 mod api;
+mod types;
 
 mod options;
 mod commands;
