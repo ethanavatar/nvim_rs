@@ -7,6 +7,8 @@ Contents:
 - [Is it even good?](#Is-it-even-good)
 - [Resources](#Resources)
 
+---
+
 A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com/noib3/nvim-oxi) and [mlua-rs/mlua](https://github.com/mlua-rs/mlua).
 
 Started as a joke, but turns out it's actually pretty nice, and now I'm actually using it as my daily setup.
