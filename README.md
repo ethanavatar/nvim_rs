@@ -18,10 +18,10 @@ Current features:
 - [x] Setup [folke/lazy](https://github.com/folke/lazy.nvim) for plugin management
     - [x] Install the only important plugin, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [x] Disable default neovim plugins
-    - [ ] Install a color theme
     - [X] Disable mouse
-    - [ ] [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) or something like it
     - [X] something for auto-pairs
+    - [ ] Install a color theme
+    - [ ] [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) or something like it
 
 ## Installation
 
@@ -36,7 +36,7 @@ Of course. It's blazingly fast.
 
 ![BLAZINGLY FAST](./images/blazing.webp)
 
-Its actually not even faster than a pure-Lua version would be (It might even be slower because of the interop layer).
+Its actually not even faster than a pure-Lua version would be. It might even be slower because of the interop layer.
 
 All of the plugins are still written in Lua anyways.
 
