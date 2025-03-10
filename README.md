@@ -1,5 +1,12 @@
 # nvim_rs
 
+Contents:
+
+- [TODO-list](#TODO-list)
+- [Installation](#Installation)
+- [Is it even good?](#Is-it-even-good)
+- [Resources](#Resources)
+
 A neovim configuration written in Rust using [noib3/nvim-oxi](https://github.com/noib3/nvim-oxi) and [mlua-rs/mlua](https://github.com/mlua-rs/mlua).
 
 Started as a joke, but turns out it's actually pretty nice, and now I'm actually using it as my daily setup.
@@ -43,3 +50,12 @@ Its actually not even faster than a pure-Lua version would be. It might even be 
 All of the plugins are still written in Lua anyways...
 
 You know what that means...
+
+## Resources
+
+This project was inspired by:
+
+- [rewhile/CatNvim](https://github.com/rewhile/CatNvim) - A neovim config written in C
+- [turboladen/init.rs](https://github.com/turboladen/init.rs) - A neovim config written in Rust
+
+If you want to try it out yourself, also check out the [examples directory in nvim-oxi](https://github.com/noib3/nvim-oxi/tree/main/examples)
