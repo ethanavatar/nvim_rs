@@ -20,22 +20,7 @@ pub fn plugins() {
 
 
     if !lazy_path.exists() {
-        let lazy_repo = "https://github.com/folke/lazy.nvim.git";
-        Command::new("git")
-            .args([
-                "clone", "--filter=blob:none", lazy_repo,
-                lazy_path.to_str().unwrap()
-            ])
-            .output()
-            .expect("failed to clone lazy");
-
-        Command::new("git")
-            .args([
-                "git", "-C", lazy_path.to_str().unwrap(),
-                "checkout", "tags/stable"
-            ])
-            .output()
-            .expect("failed to clone lazy");
+        install_lazy(&lazy_path);
     }
 
     let home_var = if cfg!(windows) { "HOMEPATH" } else { "HOME" };
@@ -116,4 +101,22 @@ pub fn plugins() {
         .call::<_, Table>("lazy").unwrap()
         .get::<_, Function>("setup").unwrap()
         .call::<_, ()>(lazy_config).unwrap();
+}
+
+fn install_lazy(lazy_path: &std::path::PathBuf) {
+    Command::new("git")
+        .arg("clone")
+        .arg("--filter=blob:none")
+        .arg("https://github.com/folke/lazy.nvim.git")
+        .arg(lazy_path)
+        .output()
+        .expect("failed to clone lazy");
+
+    Command::new("git")
+        .arg("-C")
+        .arg(lazy_path)
+        .arg("checkout")
+        .arg("tags/stable")
+        .output()
+        .expect("failed to clone lazy");
 }
