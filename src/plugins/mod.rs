@@ -1,4 +1,5 @@
 mod file_navigation;
+mod auto_pairs;
 
 use crate::ffi;
 use crate::types::TableBuilder;
@@ -17,7 +18,6 @@ pub fn plugins() {
     let lazy_path = nvim_data
         .join("lazy")
         .join("lazy.nvim");
-
 
     if !lazy_path.exists() {
         install_lazy(&lazy_path);
@@ -45,6 +45,7 @@ pub fn plugins() {
 
     let plugins = [
         file_navigation::spec(),
+        auto_pairs::spec(),
     ];
 
     let lazy_cache = cache_dir
@@ -57,12 +58,13 @@ pub fn plugins() {
         .unwrap();
 
     let disabled_plugins = [
-        "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
+        "netrw",         "netrwPlugin",
+        "netrwSettings", "netrwFileHandlers",
         "gzip",
-        "zip", "zipPlugin",
-        "tar", "tarPlugin",
+        "zip",       "zipPlugin",
+        "tar",       "tarPlugin",
         "getscript", "getscriptPlugin",
-        "vimball", "vimballPlugin",
+        "vimball",   "vimballPlugin",
         "2html_plugin",
         "logipat",
         "rrhelper",

@@ -11,6 +11,7 @@ Current features:
 - Transparent background (For terminals that support it)
 - [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [echasnovski/mini.icons](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-icons.md)
+- [echasnovski/mini.pairs](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-pairs.md) for auto-pairs
 
 ## TODO-list
 
@@ -18,10 +19,9 @@ Current features:
     - [x] Install the only important plugin, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [x] Disable default neovim plugins
     - [ ] Install a color theme
-    - [ ] Disable mouse
+    - [X] Disable mouse
     - [ ] [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) or something like it
-    - [ ] something for autopairs
-    - [ ] something for smart indentation
+    - [X] something for auto-pairs
 
 ## Installation
 
