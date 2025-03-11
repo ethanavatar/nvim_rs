@@ -38,7 +38,7 @@ Current features:
 
 - Clone this repo into `~/.config/nvim_rs`
 - Build with `cargo`
-- Copy the output `nvim_rs.dll` to `~/.config/nvim_rs/nvim_rs.dll`
+- Copy the output `nvim_rs.dll` to `~/.config/nvim_rs/lua/nvim_rs.dll`
 - Set the env-var `NVIM_APPNAME=nvim_rs`
 
 ## Is it even good?
