@@ -20,17 +20,20 @@ Current features:
 - Relative line numbers
 - Highlight-on-Yank
 - Transparent background (For terminals that support it)
-- [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
-    - [echasnovski/mini.icons](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-icons.md)
+- [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim) for file navigation
+    - [echasnovski/mini.icons](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-icons.md) for icons
 - [echasnovski/mini.pairs](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-pairs.md) for auto-pairs
+- [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) for highlights
 
 ## TODO-list
 
+- [x] Basic options/globals/commands
 - [x] Setup [folke/lazy](https://github.com/folke/lazy.nvim) for plugin management
     - [x] Install the only important plugin, [stevearc/oil.nvim](https://github.com/stevearc/oil.nvim)
     - [x] Disable default neovim plugins
-    - [X] Disable mouse
-    - [X] something for auto-pairs
+    - [x] Disable mouse
+    - [x] Something for auto-pairs
+    - [x] Treesitter for highlights
     - [ ] Install a color theme
     - [ ] [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) or something like it
 

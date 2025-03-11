@@ -1,5 +1,6 @@
 mod file_navigation;
 mod auto_pairs;
+mod treesitter;
 
 use crate::ffi;
 use crate::types::TableBuilder;
@@ -46,6 +47,7 @@ pub fn plugins() {
     let plugins = [
         file_navigation::spec(),
         auto_pairs::spec(),
+        treesitter::spec(),
     ];
 
     let lazy_cache = cache_dir
