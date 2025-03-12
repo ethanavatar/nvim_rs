@@ -3,6 +3,8 @@ use crate::api;
 pub fn globals() {
     api::set_var("mapleader",      " ");
     api::set_var("maplocalleader", " ");
+
+    api::set_var("zig_fmt_autosave", 0);
 }
 
 pub fn options() {
